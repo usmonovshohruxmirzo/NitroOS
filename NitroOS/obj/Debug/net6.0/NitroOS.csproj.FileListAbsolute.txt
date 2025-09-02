@@ -1,0 +1,12 @@
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\bin\Debug\net6.0\NitroOS.deps.json
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\bin\Debug\net6.0\NitroOS.dll
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\bin\Debug\net6.0\NitroOS.pdb
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.csproj.AssemblyReference.cache
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.GeneratedMSBuildEditorConfig.editorconfig
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.AssemblyInfoInputs.cache
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.AssemblyInfo.cs
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.csproj.CoreCompileInputs.cache
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.dll
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\refint\NitroOS.dll
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.pdb
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\ref\NitroOS.dll
