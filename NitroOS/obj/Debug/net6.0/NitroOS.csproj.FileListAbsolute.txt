@@ -10,3 +10,4 @@ D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\N
 D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\refint\NitroOS.dll
 D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.pdb
 D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\ref\NitroOS.dll
+D:\Usmonov Shohruxmirozs Projects\C#\Projects\NitroOS\NitroOS\obj\Debug\net6.0\NitroOS.sourcelink.json
