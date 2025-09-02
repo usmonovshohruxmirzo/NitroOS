@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Use VMware Player or Workstation to deploy and debug.")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+034f0563fa33edc960976cf51ca55b2b6e031574")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c3d9a3cf1c382d121756c64543d656ace9dbf1fb")]
 [assembly: System.Reflection.AssemblyProductAttribute("NitroOS")]
 [assembly: System.Reflection.AssemblyTitleAttribute("NitroOS")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
