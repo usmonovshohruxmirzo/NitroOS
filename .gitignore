@@ -4,3 +4,4 @@
 *.user
 *.sln.docstates
 .vs/
+.idea/
