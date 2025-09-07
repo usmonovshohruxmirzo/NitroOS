@@ -39,7 +39,8 @@ namespace NitroOS
             var wallpaperItem = new TaskbarButton(0, 0, 180, 35, "Wallpapers", new Pen(Color.Gray), new Pen(Color.White),
               () =>
               {
-                  appsCenter.AddWindow(new Window(200, 150, 400, 300, new Pen(Color.DarkCyan), "Wallpapers"));
+                  var wallpaperApp = new Wallpapers(250, 200, 500, 400);
+                  appsCenter.AddWindow(wallpaperApp.WallpapersWindow);
               });
 
             var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White),
