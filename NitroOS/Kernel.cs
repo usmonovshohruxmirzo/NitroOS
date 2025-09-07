@@ -1,12 +1,13 @@
 ﻿using Cosmos.System;
 using Cosmos.System.Graphics;
 using Cosmos.System.Graphics.Fonts;
+using NitroOS.App;
+using NitroOS.App.Games;
 using NitroOS.UI;
 using NitroOS.UI.Taskbar;
 using System;
 using System.Drawing;
 using Sys = Cosmos.System;
-using NitroOS.App;
 
 namespace NitroOS
 {
@@ -75,7 +76,16 @@ namespace NitroOS
                     appsCenter.AddWindow(paintApp.PaintWindow);
                 });
 
-            appsCenter = new AppsPanel(400, 768 - 70 + 10, 120, 50, new TaskbarButton[] { calcButton, paintButton });
+            var numberGuesserButton = new TaskbarButton(520, 768 - 70 + 10, 70, 50, "Guessing Game",
+                new Pen(Color.Orange), new Pen(Color.White),
+                () =>
+                {
+                    var numberGuesser = new NumberGuesserGame(250, 200, 400, 300);
+                    // Add to appsCenter (AppsPanel)
+                    appsCenter.AddWindow(numberGuesser.GameWindow);
+                });
+
+            appsCenter = new AppsPanel(400, 768 - 70 + 10, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton });
 
             // --------------------------
             // Create taskbar
