@@ -16,7 +16,10 @@ namespace NitroOS
         private Canvas canvas;
         private Pen primaryPen;
         private Pen cursor;
-        private Taskbar taskbar;
+
+        private TopBar topBar;
+        private Dock bottomDock;
+        private Menu menu;
 
         protected override void BeforeRun()
         {
@@ -26,71 +29,50 @@ namespace NitroOS
             primaryPen = new Pen(Color.FromArgb(0xFF, 0xFC, 0x48, 0x50));
             cursor = new Pen(Color.Black);
 
-            // -------------------
-            // Menu items
-            // --------------------------
             AppsPanel appsCenter = null;
 
-            var settingsItem = new TaskbarButton(0, 0, 180, 35, "Settings", new Pen(Color.Gray), new Pen(Color.White),
-                () =>
-                {
-                    appsCenter.AddWindow(new Window(200, 150, 400, 300, new Pen(Color.DarkCyan), "Settings"));
-                });
+            var calcButton = new TaskbarButton(400, 768 - 70 - 10, 50, 50, "Calc", new Pen(Color.White), primaryPen,
+                            () => appsCenter.AddWindow(new CalculatorApp(250, 200, 250, 250).CalcWindow));
 
-            var wallpaperItem = new TaskbarButton(0, 0, 180, 35, "Wallpapers", new Pen(Color.Gray), new Pen(Color.White),
-              () =>
-              {
-                  var wallpaperApp = new Wallpapers(250, 200, 500, 400);
-                  appsCenter.AddWindow(wallpaperApp.WallpapersWindow);
-              });
+            var paintButton = new TaskbarButton(460, 768 - 70 - 10, 50, 50, "Paint", new Pen(Color.White), primaryPen,
+                () => appsCenter.AddWindow(new PaintApp(250, 200, 400, 300).PaintWindow));
 
-            var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White),
-              () => Power.Shutdown());
+            var numberGuesserButton = new TaskbarButton(520, 768 - 70 - 10, 50, 50, "Guess", new Pen(Color.White), primaryPen,
+                () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow));
 
-            // --------------------------
-            // Menu (opens above taskbar)
-            // --------------------------
-            var menu = new Menu(10, 768 - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
+            appsCenter = new AppsPanel(400, 768 - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton });
 
-            // --------------------------
-            // Left taskbar button
-            // --------------------------
+            var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White), () =>
+            {
+                Power.Shutdown();
+                menu.IsOpen = false;
+            });
+
+            var settingsItem = new TaskbarButton(0, 0, 180, 35, "Settings", new Pen(Color.Gray), new Pen(Color.White), () =>
+            {
+                appsCenter.AddWindow(new Window(200, 150, 400, 300, new Pen(Color.DarkCyan), "Settings"));
+                menu.IsOpen = false;
+            });
+
+            var wallpaperItem = new TaskbarButton(0, 0, 180, 35, "Wallpapers", new Pen(Color.Gray), new Pen(Color.White), () =>
+            {
+                var wallpaperApp = new Wallpapers(250, 200, 500, 400);
+                appsCenter.AddWindow(wallpaperApp.WallpapersWindow);
+                menu.IsOpen = false;
+            });
+
+            menu = new Menu(10, 768 - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
+
             var menuButton = new TaskbarButton(10, 768 - 70 + 15, 100, 40, "Nitro OS", new Pen(Color.White), primaryPen,
                 () => { menu.IsOpen = !menu.IsOpen; });
 
-            // --------------------------
-            // Center apps (optional)
-            // --------------------------
-            var calcButton = new TaskbarButton(400, 768 - 70 + 10, 50, 50, "Calc",
-                new Pen(Color.White), primaryPen,
-                () =>
-                {
-                    var calcApp = new CalculatorApp(250, 200, 250, 250);
-                    appsCenter.AddWindow(calcApp.CalcWindow);
-                });
-            var paintButton = new TaskbarButton(460, 768 - 70 + 10, 50, 50, "Paint",
-                new Pen(Color.White), primaryPen,
-                () =>
-                {
-                    var paintApp = new PaintApp(250, 200, 400, 300);
-                    appsCenter.AddWindow(paintApp.PaintWindow);
-                });
+            topBar = new TopBar(1024, 40, primaryPen);
 
-            var numberGuesserButton = new TaskbarButton(520, 768 - 70 + 10, 70, 50, "Guessing Game",
-                new Pen(Color.White), primaryPen,
-                () =>
-                {
-                    var numberGuesser = new NumberGuesserGame(250, 200, 400, 300);
-                    // Add to appsCenter (AppsPanel)
-                    appsCenter.AddWindow(numberGuesser.GameWindow);
-                });
+            int dockWidth = 400;
+            int dockHeight = 70;
+            int dockX = (1024 - dockWidth) / 2;
 
-            appsCenter = new AppsPanel(400, 768 - 70 + 10, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton });
-
-            // --------------------------
-            // Create taskbar
-            // --------------------------
-            taskbar = new Taskbar(1024, 768, 70, primaryPen, new TaskbarButton[] { menuButton }, new Menu[] { menu }, appsCenter);
+            bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new TaskbarButton[] { menuButton }, appsCenter);
 
             MouseManager.ScreenWidth = 1024;
             MouseManager.ScreenHeight = 768;
@@ -100,12 +82,32 @@ namespace NitroOS
         {
             canvas.DrawFilledRectangle(new Pen(Color.White), 0, 0, 1024, 768);
 
-            taskbar.Draw(canvas);
-            taskbar.CheckClicks();
+            topBar.Draw(canvas);
+            topBar.CheckClicks();
 
-            taskbar.AppsCenter.Update(canvas);
+            int dockY = 768 - 20;
+            bottomDock.Draw(canvas, dockY);
+            bottomDock.CheckClicks();
 
-            canvas.DrawFilledRectangle(cursor, (int)MouseManager.X, (int)MouseManager.Y, 15, 15);
+            if (bottomDock.AppsCenter != null)
+            {
+                bottomDock.AppsCenter.Update(canvas);
+                bottomDock.AppsCenter.Draw(canvas);
+            }
+
+            if (menu.IsOpen)
+            {
+                int menuHeight = 120;
+                canvas.DrawFilledRectangle(new Pen(Color.FromArgb(200, 0xFC, 0x48, 0x50)), menu.X, menu.Y - menuHeight, menu.Width, menuHeight);
+
+                menu.Draw(canvas);
+
+                menu.CheckClicks();
+            }
+
+            int mouseX = (int)MouseManager.X;
+            int mouseY = (int)MouseManager.Y;
+            canvas.DrawFilledRectangle(cursor, mouseX, mouseY, 15, 15);
 
             canvas.Display();
         }
