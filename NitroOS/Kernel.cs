@@ -22,26 +22,28 @@ namespace NitroOS
         private Menu menu;
 
         public static DateTime BootTime;
+        private readonly uint screenWidth = 1920;
+        private readonly uint screenHeight = 1080;
 
         protected override void BeforeRun()
         {
-            BootTime = DateTime.Now;
-            canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1024, 768, ColorDepth.ColorDepth32));
+            canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode((int)screenWidth, (int)screenHeight, ColorDepth.ColorDepth32));
+
             canvas.Clear(Color.White);
 
             primaryPen = new Pen(Color.FromArgb(0xFF, 0xFC, 0x48, 0x50));
             cursor = new Pen(Color.Black);
 
             AppsPanel appsCenter = null;
-            var calcButton = new TaskbarButton(400, 768 - 70 - 10, 50, 50, "Calc",
+            var calcButton = new TaskbarButton(400, (int)screenHeight - 70 - 10, 50, 50, "Calc",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new CalculatorApp(250, 200, 250, 250).CalcWindow));
 
-            var paintButton = new TaskbarButton(460, 768 - 70 - 10, 50, 50, "Paint",
+            var paintButton = new TaskbarButton(460, (int)screenHeight - 70 - 10, 50, 50, "Paint",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new PaintApp(250, 200, 400, 300).PaintWindow));
 
-            var numberGuesserButton = new TaskbarButton(520, 768 - 70 - 10, 50, 50, "Guess",
+            var numberGuesserButton = new TaskbarButton(520, (int)screenHeight - 70 - 10, 50, 50, "Guess",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow));
 
@@ -53,7 +55,7 @@ namespace NitroOS
                  primaryPen, new Pen(Color.White),
                 () => appsCenter.AddWindow(new SnakeGame(250, 200, 360, 300).GameWindow));
 
-            appsCenter = new AppsPanel(400, 768 - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton, sysInfoButton, snakeButton });
+            appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton, sysInfoButton, snakeButton });
 
             var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White), () =>
             {
@@ -74,31 +76,31 @@ namespace NitroOS
                 menu.IsOpen = false;
             });
 
-            menu = new Menu(10, 768 - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
+            menu = new Menu(10, (int)screenHeight - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
 
-            var menuButton = new TaskbarButton(10, 768 - 70 + 15, 100, 40, "Nitro OS", new Pen(Color.White), primaryPen,
+            var menuButton = new TaskbarButton(10, (int)screenHeight - 70 + 15, 100, 40, "Nitro OS", new Pen(Color.White), primaryPen,
                 () => { menu.IsOpen = !menu.IsOpen; });
 
-            topBar = new TopBar(1024, 40, primaryPen);
+            topBar = new TopBar((int)screenWidth, 40, primaryPen);
 
-            int dockWidth = 400;
+            int dockWidth = 1500;
             int dockHeight = 70;
-            int dockX = (1024 - dockWidth) / 2;
+            int dockX = (int)((screenWidth - dockWidth) / 2);
 
             bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new TaskbarButton[] { menuButton }, appsCenter);
 
-            MouseManager.ScreenWidth = 1024;
-            MouseManager.ScreenHeight = 768;
+            MouseManager.ScreenWidth = screenWidth;
+            MouseManager.ScreenHeight = screenHeight;
         }
 
         protected override void Run()
         {
-            canvas.DrawFilledRectangle(new Pen(Color.White), 0, 0, 1024, 768);
+            canvas.DrawFilledRectangle(new Pen(Color.White), 0, 0, (int)screenWidth, (int)screenHeight);
 
             topBar.Draw(canvas);
             topBar.CheckClicks();
 
-            int dockY = 768 - 20;
+            int dockY = (int)(screenHeight - 20);
             bottomDock.Draw(canvas, dockY);
             bottomDock.CheckClicks();
 
