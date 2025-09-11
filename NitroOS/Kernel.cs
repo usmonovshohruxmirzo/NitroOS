@@ -1,6 +1,7 @@
 ﻿using Cosmos.System;
 using Cosmos.System.Graphics;
 using Cosmos.System.Graphics.Fonts;
+using IL2CPU.API.Attribs;
 using NitroOS.App;
 using NitroOS.App.Games;
 using NitroOS.UI;
@@ -15,7 +16,6 @@ namespace NitroOS
     {
         private Canvas canvas;
         private Pen primaryPen;
-        private Pen cursor;
 
         private TopBar topBar;
         private Dock bottomDock;
@@ -25,6 +25,13 @@ namespace NitroOS
         private readonly uint screenWidth = 1920;
         private readonly uint screenHeight = 1080;
 
+        [ManifestResourceStream(ResourceName = "NitroOS.Assets.background.bmp")]
+        public static byte[] background_bmp;
+        public static Bitmap background = new Bitmap(background_bmp);
+
+        [ManifestResourceStream(ResourceName = "NitroOS.Assets.cursor.bmp")]
+        public static byte[] cursor_bmp;
+        public static Bitmap curs = new Bitmap(cursor_bmp);
         protected override void BeforeRun()
         {
             canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode((int)screenWidth, (int)screenHeight, ColorDepth.ColorDepth32));
@@ -32,7 +39,6 @@ namespace NitroOS
             canvas.Clear(Color.White);
 
             primaryPen = new Pen(Color.FromArgb(0xFF, 0xFC, 0x48, 0x50));
-            cursor = new Pen(Color.Black);
 
             AppsPanel appsCenter = null;
             var calcButton = new TaskbarButton(400, (int)screenHeight - 70 - 10, 50, 50, "Calc",
@@ -96,7 +102,7 @@ namespace NitroOS
         protected override void Run()
         {
             canvas.DrawFilledRectangle(new Pen(Color.White), 0, 0, (int)screenWidth, (int)screenHeight);
-
+            canvas.DrawImage(background, 0, 0);
             topBar.Draw(canvas);
             topBar.CheckClicks();
 
@@ -122,7 +128,7 @@ namespace NitroOS
 
             int mouseX = (int)MouseManager.X;
             int mouseY = (int)MouseManager.Y;
-            canvas.DrawFilledRectangle(cursor, mouseX, mouseY, 15, 15);
+            canvas.DrawImageAlpha(curs, mouseX, mouseY);
 
             canvas.Display();
         }
