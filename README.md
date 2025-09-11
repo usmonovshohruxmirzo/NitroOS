@@ -1,3 +1,3 @@
 # Nitro OS
 
-<img width="1020" height="768" alt="image" src="https://github.com/user-attachments/assets/7433266c-1bf8-4e8e-ad75-e2dc980ceeff" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/17c83b9d-84c7-4800-ada3-e672fdf5a341" />
