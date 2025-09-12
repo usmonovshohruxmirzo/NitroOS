@@ -23,12 +23,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="Assets\background.bmp" />
       <None Remove="Assets\cursor.bmp" />
+      <None Remove="Assets\start.bmp" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Include="Assets\background.bmp" />
       <EmbeddedResource Include="Assets\cursor.bmp" />
+      <EmbeddedResource Include="Assets\start.bmp" />
     </ItemGroup>
 
     <ItemGroup>
