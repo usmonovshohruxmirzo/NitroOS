@@ -13,7 +13,7 @@ namespace NitroOS.UI
         public Pen Background;
         public string Title;
         public bool IsOpen;
-        public List<Cosmos.System.Graphics.Point> PaintPixels = new List<Cosmos.System.Graphics.Point>(); // store relative positions
+        public List<Cosmos.System.Graphics.Point> PaintPixels = new List<Cosmos.System.Graphics.Point>();
 
         public Action<Canvas, Window> DrawContent;
 

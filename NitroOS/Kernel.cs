@@ -32,6 +32,11 @@ namespace NitroOS
         [ManifestResourceStream(ResourceName = "NitroOS.Assets.cursor.bmp")]
         public static byte[] cursor_bmp;
         public static Bitmap curs = new Bitmap(cursor_bmp);
+
+        [ManifestResourceStream(ResourceName = "NitroOS.Assets.start.bmp")]
+        public static byte[] start_bmp;
+        public static Bitmap start = new Bitmap(start_bmp);
+
         protected override void BeforeRun()
         {
             canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode((int)screenWidth, (int)screenHeight, ColorDepth.ColorDepth32));
@@ -53,15 +58,11 @@ namespace NitroOS
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow));
 
-            var sysInfoButton = new TaskbarButton(50, 50, 100, 100, "MY NITRO",
+            var sysInfoButton = new TaskbarButton(50, 60, 100, 100, "MY NITRO",
                 primaryPen, new Pen(Color.White),
                 () => appsCenter.AddWindow(new SystemInfoApp(250, 200, 400, 200).InfoWindow));
 
-            var snakeButton = new TaskbarButton(200, 200, 100, 100, "Snake",
-                 primaryPen, new Pen(Color.White),
-                () => appsCenter.AddWindow(new SnakeGame(250, 200, 360, 300).GameWindow));
-
-            appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton, sysInfoButton, snakeButton });
+            appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton, sysInfoButton });
 
             var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White), () =>
             {
