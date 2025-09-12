@@ -14,6 +14,8 @@ namespace NitroOS.UI.Taskbar
         public TaskbarButton[] Buttons;
         public Menu[] Menus;
 
+        private int margin = 10;
+
         public TopBar(int width, int height, Pen bg, TaskbarButton[] buttons = null, Menu[] menus = null)
         {
             Width = width;
@@ -25,22 +27,37 @@ namespace NitroOS.UI.Taskbar
 
         public void Draw(Canvas canvas)
         {
-            // Draw full-width top bar
-            canvas.DrawFilledRectangle(Background, 0, 0, Width, Height);
+            DrawRoundedBar(canvas);
 
-            // Draw buttons and menus
             foreach (var btn in Buttons) btn.Draw(canvas);
             foreach (var menu in Menus) menu.Draw(canvas);
 
-            // Clock (top-right)
+            // Example status indicators
             string timeStr = DateTime.Now.ToString("HH:mm");
             canvas.DrawString(timeStr, PCScreenFont.Default, new Pen(Color.White),
-                new Cosmos.System.Graphics.Point(Width - 80, 5));
+                new Cosmos.System.Graphics.Point((Width - margin) - 80, margin + 5));
 
-            // Battery status placeholder (top-right, left of clock)
-            string batteryStr = "🔋 100%"; // TODO: integrate actual battery if supported
+            string batteryStr = "100%";
             canvas.DrawString(batteryStr, PCScreenFont.Default, new Pen(Color.White),
-                new Cosmos.System.Graphics.Point(Width - 150, 5));
+                new Cosmos.System.Graphics.Point((Width - margin) - 150, margin + 5));
+        }
+
+        private void DrawRoundedBar(Canvas canvas)
+        {
+            int barX = margin;
+            int barY = margin;
+            int barWidth = Width - (2 * margin);
+            int barHeight = Height;
+
+            int radius = (int)(barHeight / 2 - 0.4);
+
+            canvas.DrawFilledRectangle(Background,
+                barX + radius, barY,
+                barWidth - (2 * radius), barHeight);
+
+            canvas.DrawFilledCircle(Background, barX + radius, barY + radius, radius);
+
+            canvas.DrawFilledCircle(Background, barX + barWidth - radius, barY + radius, radius);
         }
 
         public void CheckClicks()
