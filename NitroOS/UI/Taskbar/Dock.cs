@@ -13,6 +13,8 @@ namespace NitroOS.UI.Taskbar
         public TaskbarButton[] Buttons;
         public AppsPanel AppsCenter;
 
+        public int CornerRadius = 20;
+
         public Dock(int x, int width, int height, Pen bg, TaskbarButton[] buttons, AppsPanel appsCenter = null)
         {
             X = x;
@@ -26,15 +28,30 @@ namespace NitroOS.UI.Taskbar
         public void Draw(Canvas canvas, int screenHeight)
         {
             int y = screenHeight - Height;
-            canvas.DrawFilledRectangle(Background, X, y, Width, Height);
 
-            foreach (var btn in Buttons) btn.Draw(canvas);
+            DrawRoundedDock(canvas, Background, X, y, Width, Height, CornerRadius);
+
+            foreach (var btn in Buttons)
+                btn.Draw(canvas);
+
             AppsCenter?.Draw(canvas);
         }
 
+        private void DrawRoundedDock(Canvas canvas, Pen pen, int x, int y, int width, int height, int cornerRadius)
+        {
+            int circleRadius = 34;
+
+            canvas.DrawFilledRectangle(pen, x + circleRadius, y, width - 2 * circleRadius, height);
+            canvas.DrawFilledCircle(pen, x + circleRadius, y + height / 2, circleRadius);
+            canvas.DrawFilledCircle(pen, x + width - circleRadius, y + height / 2, circleRadius);
+        }
+
+
         public void CheckClicks()
         {
-            foreach (var btn in Buttons) btn.CheckClick();
+            foreach (var btn in Buttons)
+                btn.CheckClick();
+
             AppsCenter?.CheckClicks();
         }
     }
