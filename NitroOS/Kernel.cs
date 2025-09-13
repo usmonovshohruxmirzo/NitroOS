@@ -85,8 +85,8 @@ namespace NitroOS
 
             menu = new Menu(10, (int)screenHeight - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
 
-            var menuButton = new TaskbarButton(10, (int)screenHeight - 70 + 15, 100, 40, "Nitro OS", new Pen(Color.White), primaryPen,
-                () => { menu.IsOpen = !menu.IsOpen; });
+            var menuButton = new TaskbarButton(20, (int)screenHeight - 90, 100, 70, "Nitro OS", primaryPen, new Pen(Color.White),
+                () => { menu.IsOpen = !menu.IsOpen; }, 33.5);
 
             topBar = new TopBar((int)screenWidth, 40, primaryPen);
 
