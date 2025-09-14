@@ -8,6 +8,7 @@ using NitroOS.UI;
 using NitroOS.UI.Taskbar;
 using System;
 using System.Drawing;
+using System.Globalization;
 using Sys = Cosmos.System;
 
 namespace NitroOS
@@ -20,6 +21,7 @@ namespace NitroOS
         private TopBar topBar;
         private Dock bottomDock;
         private Menu menu;
+        private CalendarApp calendar;
 
         public static DateTime BootTime;
         private readonly uint screenWidth = 1920;
@@ -83,10 +85,28 @@ namespace NitroOS
                 menu.IsOpen = false;
             });
 
-            menu = new Menu(10, (int)screenHeight - 70, 200, primaryPen, new Button[] { shutdownItem, settingsItem, wallpaperItem });
+            menu = new Menu(20, (int)screenHeight - 100, 200, primaryPen, new Button[] { shutdownItem, settingsItem, wallpaperItem });
 
             var menuButton = new Button(20, (int)screenHeight - 90, 100, 70, "Nitro OS", primaryPen, new Pen(Color.White),
-                () => { menu.IsOpen = !menu.IsOpen; }, 33.5);
+                () => { menu.IsOpen = !menu.IsOpen; }, 33.8);
+
+            calendar = new CalendarApp((int)screenWidth - 250, (int)screenHeight - 300, primaryPen, new Pen(Color.White));
+
+            var calendarButton = new Button(
+                (int)screenWidth - 120,
+                (int)screenHeight - 90,
+                100,
+                70,
+                DateTime.Now.ToString("M/d/yyyy"),
+                primaryPen,
+                new Pen(Color.White),
+                () =>
+                {
+                    calendar.IsOpen = !calendar.IsOpen;
+                    menu.IsOpen = false;
+                },
+                33.8
+            );
 
             topBar = new TopBar((int)screenWidth, 40, primaryPen);
 
@@ -94,7 +114,7 @@ namespace NitroOS
             int dockHeight = 70;
             int dockX = (int)((screenWidth - dockWidth) / 2);
 
-            bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new Button[] { menuButton }, appsCenter);
+            bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new Button[] { menuButton, calendarButton }, appsCenter);
 
             MouseManager.ScreenWidth = screenWidth;
             MouseManager.ScreenHeight = screenHeight;
@@ -103,7 +123,9 @@ namespace NitroOS
         protected override void Run()
         {
             canvas.DrawFilledRectangle(new Pen(Color.White), 0, 0, (int)screenWidth, (int)screenHeight);
+
             canvas.DrawImage(background, 0, 0);
+
             topBar.Draw(canvas);
             topBar.CheckClicks();
 
@@ -123,9 +145,10 @@ namespace NitroOS
                 canvas.DrawFilledRectangle(new Pen(Color.FromArgb(200, 0xFC, 0x48, 0x50)), menu.X, menu.Y - menuHeight, menu.Width, menuHeight);
 
                 menu.Draw(canvas);
-
                 menu.CheckClicks();
             }
+
+            calendar.Draw(canvas);
 
             int mouseX = (int)MouseManager.X;
             int mouseY = (int)MouseManager.Y;
