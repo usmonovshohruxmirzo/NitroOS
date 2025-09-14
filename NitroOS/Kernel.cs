@@ -50,19 +50,19 @@ namespace NitroOS
             AppsPanel appsCenter = null;
             var calcButton = new Button(400, (int)screenHeight - 70 - 10, 50, 50, "Calc",
                 new Pen(Color.White), primaryPen,
-                () => appsCenter.AddWindow(new CalculatorApp(250, 200, 250, 250).CalcWindow));
+                () => appsCenter.AddWindow(new CalculatorApp(250, 200, 250, 250).CalcWindow), 25);
 
             var paintButton = new Button(460, (int)screenHeight - 70 - 10, 50, 50, "Paint",
                 new Pen(Color.White), primaryPen,
-                () => appsCenter.AddWindow(new PaintApp(250, 200, 400, 300).PaintWindow));
+                () => appsCenter.AddWindow(new PaintApp(250, 200, 400, 300).PaintWindow), 25);
 
             var numberGuesserButton = new Button(520, (int)screenHeight - 70 - 10, 50, 50, "Guess",
                 new Pen(Color.White), primaryPen,
-                () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow));
+                () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow), 25);
 
-            var sysInfoButton = new Button(50, 60, 100, 100, "MY NITRO",
-                primaryPen, new Pen(Color.White),
-                () => appsCenter.AddWindow(new SystemInfoApp(250, 200, 400, 200).InfoWindow));
+            var sysInfoButton = new Button(580, (int)screenHeight - 70 - 10, 50, 50, "Info",
+                new Pen(Color.White), primaryPen,
+                () => appsCenter.AddWindow(new SystemInfoApp(250, 200, 400, 200).InfoWindow), 25);
 
             appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new Button[] { calcButton, paintButton, numberGuesserButton, sysInfoButton });
 
