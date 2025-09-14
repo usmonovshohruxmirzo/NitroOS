@@ -46,46 +46,46 @@ namespace NitroOS
             primaryPen = new Pen(Color.FromArgb(0xFF, 0xFC, 0x48, 0x50));
 
             AppsPanel appsCenter = null;
-            var calcButton = new TaskbarButton(400, (int)screenHeight - 70 - 10, 50, 50, "Calc",
+            var calcButton = new Button(400, (int)screenHeight - 70 - 10, 50, 50, "Calc",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new CalculatorApp(250, 200, 250, 250).CalcWindow));
 
-            var paintButton = new TaskbarButton(460, (int)screenHeight - 70 - 10, 50, 50, "Paint",
+            var paintButton = new Button(460, (int)screenHeight - 70 - 10, 50, 50, "Paint",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new PaintApp(250, 200, 400, 300).PaintWindow));
 
-            var numberGuesserButton = new TaskbarButton(520, (int)screenHeight - 70 - 10, 50, 50, "Guess",
+            var numberGuesserButton = new Button(520, (int)screenHeight - 70 - 10, 50, 50, "Guess",
                 new Pen(Color.White), primaryPen,
                 () => appsCenter.AddWindow(new NumberGuesserGame(250, 200, 400, 300).GameWindow));
 
-            var sysInfoButton = new TaskbarButton(50, 60, 100, 100, "MY NITRO",
+            var sysInfoButton = new Button(50, 60, 100, 100, "MY NITRO",
                 primaryPen, new Pen(Color.White),
                 () => appsCenter.AddWindow(new SystemInfoApp(250, 200, 400, 200).InfoWindow));
 
-            appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new TaskbarButton[] { calcButton, paintButton, numberGuesserButton, sysInfoButton });
+            appsCenter = new AppsPanel(400, (int)screenHeight - 70 + 20, 120, 50, new Button[] { calcButton, paintButton, numberGuesserButton, sysInfoButton });
 
-            var shutdownItem = new TaskbarButton(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White), () =>
+            var shutdownItem = new Button(0, 0, 180, 35, "Shutdown", new Pen(Color.Gray), new Pen(Color.White), () =>
             {
                 Power.Shutdown();
                 menu.IsOpen = false;
             });
 
-            var settingsItem = new TaskbarButton(0, 0, 180, 35, "Settings", new Pen(Color.Gray), new Pen(Color.White), () =>
+            var settingsItem = new Button(0, 0, 180, 35, "Settings", new Pen(Color.Gray), new Pen(Color.White), () =>
             {
                 appsCenter.AddWindow(new Window(200, 150, 400, 300, new Pen(Color.DarkCyan), "Settings"));
                 menu.IsOpen = false;
             });
 
-            var wallpaperItem = new TaskbarButton(0, 0, 180, 35, "Wallpapers", new Pen(Color.Gray), new Pen(Color.White), () =>
+            var wallpaperItem = new Button(0, 0, 180, 35, "Wallpapers", new Pen(Color.Gray), new Pen(Color.White), () =>
             {
                 var wallpaperApp = new Wallpapers(250, 200, 500, 400);
                 appsCenter.AddWindow(wallpaperApp.WallpapersWindow);
                 menu.IsOpen = false;
             });
 
-            menu = new Menu(10, (int)screenHeight - 70, 200, primaryPen, new TaskbarButton[] { shutdownItem, settingsItem, wallpaperItem });
+            menu = new Menu(10, (int)screenHeight - 70, 200, primaryPen, new Button[] { shutdownItem, settingsItem, wallpaperItem });
 
-            var menuButton = new TaskbarButton(20, (int)screenHeight - 90, 100, 70, "Nitro OS", primaryPen, new Pen(Color.White),
+            var menuButton = new Button(20, (int)screenHeight - 90, 100, 70, "Nitro OS", primaryPen, new Pen(Color.White),
                 () => { menu.IsOpen = !menu.IsOpen; }, 33.5);
 
             topBar = new TopBar((int)screenWidth, 40, primaryPen);
@@ -94,7 +94,7 @@ namespace NitroOS
             int dockHeight = 70;
             int dockX = (int)((screenWidth - dockWidth) / 2);
 
-            bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new TaskbarButton[] { menuButton }, appsCenter);
+            bottomDock = new Dock(dockX, dockWidth, dockHeight, primaryPen, new Button[] { menuButton }, appsCenter);
 
             MouseManager.ScreenWidth = screenWidth;
             MouseManager.ScreenHeight = screenHeight;

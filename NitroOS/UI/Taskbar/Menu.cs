@@ -11,13 +11,13 @@ namespace NitroOS.UI.Taskbar
     {
         public int X, Y, Width;
         public Pen Background;
-        public TaskbarButton[] Items;
+        public Button[] Items;
         public bool IsOpen;
 
         private int padding = 10;
         private int itemHeight = 35;
 
-        public Menu(int x, int y, int width, Pen bg, TaskbarButton[] items)
+        public Menu(int x, int y, int width, Pen bg, Button[] items)
         {
             X = x; Y = y; Width = width; Background = bg; Items = items;
         }

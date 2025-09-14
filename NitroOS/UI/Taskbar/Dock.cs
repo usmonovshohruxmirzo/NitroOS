@@ -10,12 +10,12 @@ namespace NitroOS.UI.Taskbar
     {
         public int X, Width, Height;
         public Pen Background;
-        public TaskbarButton[] Buttons;
+        public Button[] Buttons;
         public AppsPanel AppsCenter;
 
         public int CornerRadius = 20;
 
-        public Dock(int x, int width, int height, Pen bg, TaskbarButton[] buttons, AppsPanel appsCenter = null)
+        public Dock(int x, int width, int height, Pen bg, Button[] buttons, AppsPanel appsCenter = null)
         {
             X = x;
             Width = width;

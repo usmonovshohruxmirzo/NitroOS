@@ -11,17 +11,17 @@ namespace NitroOS.UI.Taskbar
         public int Width;
         public int Height;
         public Pen Background;
-        public TaskbarButton[] Buttons;
+        public Button[] Buttons;
         public Menu[] Menus;
 
         private int margin = 10;
 
-        public TopBar(int width, int height, Pen bg, TaskbarButton[] buttons = null, Menu[] menus = null)
+        public TopBar(int width, int height, Pen bg, Button[] buttons = null, Menu[] menus = null)
         {
             Width = width;
             Height = height;
             Background = bg;
-            Buttons = buttons ?? new TaskbarButton[0];
+            Buttons = buttons ?? new Button[0];
             Menus = menus ?? new Menu[0];
         }
 
@@ -32,7 +32,6 @@ namespace NitroOS.UI.Taskbar
             foreach (var btn in Buttons) btn.Draw(canvas);
             foreach (var menu in Menus) menu.Draw(canvas);
 
-            // Example status indicators
             string timeStr = DateTime.Now.ToString("HH:mm");
             canvas.DrawString(timeStr, PCScreenFont.Default, new Pen(Color.White),
                 new Cosmos.System.Graphics.Point((Width - margin) - 80, margin + 5));

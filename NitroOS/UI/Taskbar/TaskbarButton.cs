@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace NitroOS.UI.Taskbar
 {
-    public class TaskbarButton
+    public class Button
     {
         public int X, Y, Width, Height;
         public string Text;
@@ -15,7 +15,7 @@ namespace NitroOS.UI.Taskbar
         public Action OnClick;
         public int CornerRadius;
 
-        public TaskbarButton(int x, int y, int width, int height, string text, Pen bg, Pen fg, Action onClick, double cornerRadius = 0)
+        public Button(int x, int y, int width, int height, string text, Pen bg, Pen fg, Action onClick, double cornerRadius = 0)
         {
             X = x; Y = y; Width = width; Height = height;
             Text = text; Background = bg; TextColor = fg; OnClick = onClick;

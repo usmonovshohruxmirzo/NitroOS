@@ -10,10 +10,10 @@ namespace NitroOS.UI.Taskbar
     public class AppsPanel
     {
         public int X, Y, Width, Height;
-        public TaskbarButton[] Apps;
+        public Button[] Apps;
         public List<Window> OpenWindows = new List<Window>();
 
-        public AppsPanel(int x, int y, int width, int height, TaskbarButton[] apps)
+        public AppsPanel(int x, int y, int width, int height, Button[] apps)
         {
             X = x; Y = y; Width = width; Height = height;
             Apps = apps;
